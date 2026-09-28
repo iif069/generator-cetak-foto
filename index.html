@@ -30,7 +30,12 @@ main{padding:24px;overflow:auto}
 .cell{position:absolute;overflow:hidden;background:#fff}
 .cell img{width:100%;height:100%;display:block}
 .page svg{position:absolute;inset:0;width:100%;height:100%}
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.two[hidden]{display:none}.two input{min-width:0;width:100%}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.two[hidden]{display:none}label[hidden]{display:none}#plist[hidden]{display:none}
+.rows{max-height:230px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.prow{display:grid;grid-template-columns:36px 42px minmax(0,1fr) 32px;gap:6px;align-items:center;font-size:12px;color:var(--mute)}
+.prow img{width:36px;height:36px;object-fit:cover;border-radius:4px}
+.prow select{padding:5px;font-size:12px;min-width:0}
+button.x{padding:4px 0}.two input{min-width:0;width:100%}
 @media (max-width:820px){.app{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}#pages{zoom:.4}}
 @media print{
  .ghost{display:none}
@@ -49,6 +54,7 @@ main{padding:24px;overflow:auto}
  <div><h1>Susun Foto R ke A4</h1><p class="s">Foto otomatis memenuhi lembar kertas, siap cetak.</p></div>
  <div class="drop" id="drop" tabindex="0" role="button">Klik atau tarik foto ke sini<br><span style="font-size:12px">bisa banyak sekaligus</span></div>
  <input id="file" type="file" accept="image/*" multiple hidden>
+ <div id="plist" hidden></div>
  <label>Kertas
   <select id="paper">
    <option value="210x297">A4 (210 × 297 mm)</option>
@@ -61,13 +67,24 @@ main{padding:24px;overflow:auto}
   <label>Lebar (mm)<input id="pw" type="number" min="30" step="1" value="150"></label>
   <label>Tinggi (mm)<input id="ph" type="number" min="30" step="1" value="200"></label>
  </div>
+ <label>Mode
+  <select id="mode">
+   <option value="r">Foto ukuran R (1R, 2R, dst)</option>
+   <option value="split">Bagi kertas jadi 2 atau 4</option>
+  </select></label>
+ <label id="lblSplit" hidden>Pembagian kertas
+  <select id="split">
+   <option value="2h">2 bagian (atas-bawah)</option>
+   <option value="2v">2 bagian (kiri-kanan)</option>
+   <option value="4">4 bagian (2 × 2)</option>
+  </select></label>
  <label>Posisi susunan di kertas
   <select id="align">
    <option value="tc">Atas tengah (sisa di bawah)</option>
    <option value="tl">Atas kiri</option>
    <option value="c">Tengah</option>
   </select></label>
- <label>Ukuran foto
+ <label id="lblSize">Ukuran foto
   <select id="size">
    <option value="1R">1R (5 × 7,5 cm)</option>
    <option value="2R">2R (6 × 9 cm)</option>
@@ -85,8 +102,8 @@ main{padding:24px;overflow:auto}
   <select id="fit"><option value="cover">Penuh (bagian lebih dipotong)</option><option value="contain">Utuh (ada sisi putih)</option></select></label>
  <label>Border putih tiap sisi (mm)<input id="border" type="number" min="0" max="15" step="0.5" value="3"></label>
  <label>Jarak antar foto (mm)<input id="gap" type="number" min="0" max="20" step="0.5" value="0"></label>
- <label>Tebal garis potong (mm)<input id="lw" type="number" min="0.01" max="0.5" step="0.01" value="0.05"></label>
- <label class="chk"><input id="rot" type="checkbox" checked> Putar foto otomatis mengikuti bingkai</label>
+ <label>Tebal garis potong (mm)<input id="lw" type="number" min="0.01" max="0.5" step="0.01" value="0.01"></label>
+ <label class="chk"><input id="rot" type="checkbox" checked> Mode Otomatis: putar foto mengikuti bingkai</label>
  <div class="info" id="info"></div>
  <button id="print">Cetak / Simpan PDF</button>
  <button class="g" id="clear">Hapus semua foto</button>
@@ -117,17 +134,24 @@ function pack(w,h,g){
       if(all.length>best.length)best=all;
     }
   }
+  if(best.length){const x0=Math.min(...best.map(c=>c[0])),y0=Math.min(...best.map(c=>c[1]));best=best.map(c=>[c[0]-x0,c[1]-y0,c[2],c[3]])}
   return best;
+}
+function splitCells(g){
+  const t=$('split').value,cols=t==='2h'?1:2,rows=t==='2v'?1:2;
+  const cw=(UW-(cols-1)*g)/cols,ch=(UH-(rows-1)*g)/rows,o=[];
+  for(let i=0;i<rows;i++)for(let j=0;j<cols;j++)o.push([j*(cw+g),i*(ch+g),cw,ch]);
+  return o;
 }
 function cellImage(img,iw,ih){
   const pw=Math.round(iw/25.4*300),ph=Math.round(ih/25.4*300);
   const sw=img.naturalWidth,sh=img.naturalHeight;
-  const rot=$('rot').checked&&((sw>sh)!==(iw>ih));
+  const m=img.rot||'auto',ang=m==='auto'?(($('rot').checked&&((sw>sh)!==(iw>ih)))?90:0):+m,rot=ang%180!==0;
   const c=document.createElement('canvas');c.width=pw;c.height=ph;
   const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,pw,ph);
   const tw=rot?ph:pw,th=rot?pw:ph;
   const s=($('fit').value==='cover'?Math.max:Math.min)(tw/sw,th/sh);
-  x.translate(pw/2,ph/2);if(rot)x.rotate(Math.PI/2);
+  x.translate(pw/2,ph/2);x.rotate(ang*Math.PI/180);
   x.drawImage(img,-sw*s/2,-sh*s/2,sw*s,sh*s);
   return c.toDataURL('image/jpeg',.92);
 }
@@ -140,11 +164,13 @@ function render(){
   if(pv==='custom'){PW=Math.max(30,parseFloat($('pw').value)||30);PH=Math.max(30,parseFloat($('ph').value)||30)}
   else{[PW,PH]=pv.split('x').map(Number)}
   UW=PW-2*M;UH=PH-2*M;
-  pgStyle.textContent=`@media print{@page{size:${PW}mm ${PH}mm;margin:0}}`;
+  pgStyle.textContent=`@page{size:${PW}mm ${PH}mm;margin:0}`;
+  const mode=$('mode').value;$('lblSize').hidden=mode==='split';$('lblSplit').hidden=mode!=='split';
   const [w,h]=SIZES[$('size').value],g=Math.max(0,parseFloat($('gap').value)||0);
-  const b=Math.min(Math.max(0,parseFloat($('border').value)||0),Math.min(w,h)/2-1);
-  const lw=Math.max(0.01,parseFloat($('lw').value)||0.05);
-  const cells=pack(w,h,g),per=cells.length,root=$('pages');
+  const cells=mode==='split'?splitCells(g):pack(w,h,g),per=cells.length,root=$('pages');
+  const mn=per?Math.min(cells[0][2],cells[0][3]):0;
+  const b=Math.min(Math.max(0,parseFloat($('border').value)||0),Math.max(0,mn/2-1));
+  const lw=Math.max(0.01,parseFloat($('lw').value)||0.01);
   root.innerHTML='';photos.forEach(p=>p._c={});
   if(!per){$('info').textContent='Ukuran foto terlalu besar untuk kertas ini (margin 3 mm).';return}
   const n=+$('copies').value||per;
@@ -168,13 +194,29 @@ function render(){
     root.appendChild(page);
   }
   const tegak=cells.filter(c=>c[3]>=c[2]).length;
-  $('info').innerHTML=`<b>${per} foto</b> per lembar (${tegak} tegak + ${per-tegak} rebah)<br>${photos.length} foto → ${photos.length?pages:0} lembar<br>Garis potong = ukuran ${$('size').value} penuh, border putih ${b} mm<br>Kertas ${PW} × ${PH} mm, margin 3 mm, garis ${lw} mm`;
+  $('info').innerHTML=`<b>${per} foto</b> per lembar (${tegak} tegak + ${per-tegak} rebah)<br>${photos.length} foto → ${photos.length?pages:0} lembar<br>Garis potong = ${mode==='split'?(+cells[0][2].toFixed(1))+' × '+(+cells[0][3].toFixed(1))+' mm':'ukuran '+$('size').value} penuh, border putih ${b} mm<br>Kertas ${PW} × ${PH} mm, margin 3 mm, garis ${lw} mm`;
+}
+const OPTS='<option value="auto">Otomatis</option><option value="0">Tanpa putar</option><option value="90">Putar 90° kanan</option><option value="270">Putar 90° kiri</option><option value="180">Putar 180°</option>';
+function buildList(){
+  const el=$('plist');el.hidden=!photos.length;
+  if(!photos.length){el.innerHTML='';return}
+  el.innerHTML='<label>Orientasi semua foto<select id="allrot"><option value="">Pilih untuk semua…</option>'+OPTS+'</select></label><div class="rows"></div>';
+  const rows=el.querySelector('.rows');
+  photos.forEach((p,i)=>{
+    const r=document.createElement('div');r.className='prow';
+    r.innerHTML=`<img src="${p.src}" alt=""><span>${p.naturalWidth>=p.naturalHeight?'Rebah':'Tegak'}</span><select aria-label="Orientasi foto ${i+1}">${OPTS}</select><button class="g x" title="Hapus foto" aria-label="Hapus foto ${i+1}">✕</button>`;
+    const sel=r.querySelector('select');sel.value=p.rot;
+    sel.onchange=()=>{p.rot=sel.value;render()};
+    r.querySelector('button').onclick=()=>{photos.splice(i,1);buildList();render()};
+    rows.appendChild(r);
+  });
+  $('allrot').onchange=e=>{if(e.target.value==='')return;photos.forEach(p=>p.rot=e.target.value);buildList();render()};
 }
 function addFiles(files){
   const jobs=[...files].filter(f=>f.type.startsWith('image/')).map(f=>new Promise(res=>{
-    const im=new Image();im.onload=()=>{photos.push(im);res()};im.onerror=res;im.src=URL.createObjectURL(f);
+    const im=new Image();im.onload=()=>{im.rot='auto';photos.push(im);res()};im.onerror=res;im.src=URL.createObjectURL(f);
   }));
-  Promise.all(jobs).then(render);
+  Promise.all(jobs).then(()=>{buildList();render()});
 }
 $('drop').onclick=()=>$('file').click();
 $('drop').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('file').click()}};
@@ -182,8 +224,8 @@ $('file').onchange=e=>{addFiles(e.target.files);e.target.value=''};
 $('drop').ondragover=e=>{e.preventDefault();$('drop').classList.add('on')};
 $('drop').ondragleave=()=>$('drop').classList.remove('on');
 $('drop').ondrop=e=>{e.preventDefault();$('drop').classList.remove('on');addFiles(e.dataTransfer.files)};
-['paper','pw','ph','size','copies','fit','gap','rot','border','lw','align'].forEach(id=>$(id).addEventListener('input',render));
-$('clear').onclick=()=>{photos=[];render()};
+['paper','pw','ph','size','copies','fit','gap','rot','border','lw','align','mode','split'].forEach(id=>$(id).addEventListener('input',render));
+$('clear').onclick=()=>{photos=[];buildList();render()};
 $('print').onclick=()=>window.print();
 render();
 </script>
