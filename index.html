@@ -26,13 +26,14 @@ button:focus-visible,select:focus-visible,input:focus-visible,.drop:focus-visibl
 .info{font-size:13px;background:var(--bg);border-radius:6px;padding:10px}
 main{padding:24px;overflow:auto}
 #pages{zoom:.62;display:flex;flex-direction:column;align-items:center;gap:24px}
-.page{position:relative;width:210mm;height:297mm;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.18);flex:none}
-.cell{position:absolute;overflow:hidden;background:#fff}.cell.empty{background:#f1f0ec}
+.page{position:relative;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.18);flex:none}
+.cell{position:absolute;overflow:hidden;background:#fff}
 .cell img{width:100%;height:100%;display:block}
-.page svg{position:absolute;inset:0;width:210mm;height:297mm}
+.page svg{position:absolute;inset:0;width:100%;height:100%}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media (max-width:820px){.app{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}#pages{zoom:.4}}
 @media print{
- @page{size:A4;margin:0}
+ .ghost{display:none}
  body{background:#fff}.app{display:block}aside{display:none}main{padding:0;overflow:visible}
  #pages{zoom:1;display:block}
  .page{box-shadow:none;break-after:page;page-break-after:always}
@@ -45,9 +46,21 @@ main{padding:24px;overflow:auto}
 <body>
 <div class="app">
 <aside>
- <div><h1>Susun Foto R ke A4</h1><p class="s">Foto otomatis memenuhi lembar A4, siap cetak.</p></div>
+ <div><h1>Susun Foto R ke A4</h1><p class="s">Foto otomatis memenuhi lembar kertas, siap cetak.</p></div>
  <div class="drop" id="drop" tabindex="0" role="button">Klik atau tarik foto ke sini<br><span style="font-size:12px">bisa banyak sekaligus</span></div>
  <input id="file" type="file" accept="image/*" multiple hidden>
+ <label>Kertas
+  <select id="paper">
+   <option value="210x297">A4 (210 × 297 mm)</option>
+   <option value="297x420">A3 (297 × 420 mm)</option>
+   <option value="329x483">A3+ (329 × 483 mm)</option>
+   <option value="215x330">F4 (215 × 330 mm)</option>
+   <option value="custom">Custom (kertas sisa)</option>
+  </select></label>
+ <div class="two" id="custom" hidden>
+  <label>Lebar (mm)<input id="pw" type="number" min="30" step="1" value="150"></label>
+  <label>Tinggi (mm)<input id="ph" type="number" min="30" step="1" value="200"></label>
+ </div>
  <label>Ukuran foto
   <select id="size">
    <option value="1R">1R (5 × 7,5 cm)</option>
@@ -75,7 +88,8 @@ main{padding:24px;overflow:auto}
 </div>
 <script>
 const SIZES={'1R':[50,75],'2R':[60,90],'3R':[89,127],'4R':[102,152],'5R':[127,178],'6R':[152,203],'P23':[20,30],'P34':[30,40],'P46':[40,60]};
-const M=3,UW=210-2*M,UH=297-2*M;
+const M=3;let PW=210,PH=297,UW=204,UH=291;
+const pgStyle=document.head.appendChild(document.createElement('style'));
 const $=id=>document.getElementById(id);
 let photos=[];
 
@@ -115,32 +129,38 @@ function getSrc(p,cw,ch,b){
   return p._c[k]||(p._c[k]=cellImage(p,cw-2*b,ch-2*b));
 }
 function render(){
+  const pv=$('paper').value;$('custom').hidden=pv!=='custom';
+  if(pv==='custom'){PW=Math.max(30,parseFloat($('pw').value)||30);PH=Math.max(30,parseFloat($('ph').value)||30)}
+  else{[PW,PH]=pv.split('x').map(Number)}
+  UW=PW-2*M;UH=PH-2*M;
+  pgStyle.textContent=`@media print{@page{size:${PW}mm ${PH}mm;margin:0}}`;
   const [w,h]=SIZES[$('size').value],g=Math.max(0,parseFloat($('gap').value)||0);
   const b=Math.min(Math.max(0,parseFloat($('border').value)||0),Math.min(w,h)/2-1);
   const cells=pack(w,h,g),per=cells.length,root=$('pages');
   root.innerHTML='';photos.forEach(p=>p._c={});
-  if(!per){$('info').textContent='Ukuran terlalu besar untuk A4 dengan margin 3 mm.';return}
+  if(!per){$('info').textContent='Ukuran foto terlalu besar untuk kertas ini (margin 3 mm).';return}
   const n=+$('copies').value||per;
   const seq=[];photos.forEach(p=>{for(let k=0;k<n;k++)seq.push(p)});
   const pages=Math.max(1,Math.ceil(seq.length/per));
   const mx=Math.max(...cells.map(c=>c[0]+c[2])),my=Math.max(...cells.map(c=>c[1]+c[3]));
   const ox=M+(UW-mx)/2,oy=M+(UH-my)/2;
   for(let pg=0;pg<pages;pg++){
-    const page=document.createElement('div');page.className='page';
-    let rects='';
+    const page=document.createElement('div');page.className='page';page.style.width=PW+'mm';page.style.height=PH+'mm';
+    let rects='',ghost='';
     cells.forEach((c,i)=>{
       const x=ox+c[0],y=oy+c[1],p=seq[pg*per+i];
       const d=document.createElement('div');
       d.className='cell'+(p?'':' empty');
       d.style.cssText=`left:${x}mm;top:${y}mm;width:${c[2]}mm;height:${c[3]}mm;padding:${b}mm`;
       if(p){d.innerHTML=`<img src="${getSrc(p,c[2],c[3],b)}" alt="">`;rects+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`}
+      if(!p&&!photos.length)ghost+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`;
       page.appendChild(d);
     });
-    page.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="0.1">${rects}</g></svg>`);
+    page.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 ${PW} ${PH}" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="0.1">${rects}</g><g class="ghost" fill="none" stroke="#bbb" stroke-width="0.2">${ghost}</g></svg>`);
     root.appendChild(page);
   }
   const tegak=cells.filter(c=>c[3]>=c[2]).length;
-  $('info').innerHTML=`<b>${per} foto</b> per lembar (${tegak} tegak + ${per-tegak} rebah)<br>${photos.length} foto → ${photos.length?pages:0} lembar A4<br>Garis potong = ukuran ${$('size').value} penuh, border putih ${b} mm<br>Margin 3 mm, garis 0,1 mm`;
+  $('info').innerHTML=`<b>${per} foto</b> per lembar (${tegak} tegak + ${per-tegak} rebah)<br>${photos.length} foto → ${photos.length?pages:0} lembar<br>Garis potong = ukuran ${$('size').value} penuh, border putih ${b} mm<br>Kertas ${PW} × ${PH} mm, margin 3 mm, garis 0,1 mm`;
 }
 function addFiles(files){
   const jobs=[...files].filter(f=>f.type.startsWith('image/')).map(f=>new Promise(res=>{
@@ -154,7 +174,7 @@ $('file').onchange=e=>{addFiles(e.target.files);e.target.value=''};
 $('drop').ondragover=e=>{e.preventDefault();$('drop').classList.add('on')};
 $('drop').ondragleave=()=>$('drop').classList.remove('on');
 $('drop').ondrop=e=>{e.preventDefault();$('drop').classList.remove('on');addFiles(e.dataTransfer.files)};
-['size','copies','fit','gap','rot','border'].forEach(id=>$(id).addEventListener('input',render));
+['paper','pw','ph','size','copies','fit','gap','rot','border'].forEach(id=>$(id).addEventListener('input',render));
 $('clear').onclick=()=>{photos=[];render()};
 $('print').onclick=()=>window.print();
 render();
