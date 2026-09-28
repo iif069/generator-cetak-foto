@@ -27,7 +27,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,.drop:focus-visibl
 main{padding:24px;overflow:auto}
 #pages{zoom:.62;display:flex;flex-direction:column;align-items:center;gap:24px}
 .page{position:relative;width:210mm;height:297mm;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.18);flex:none}
-.cell{position:absolute;overflow:hidden;background:#f1f0ec}
+.cell{position:absolute;overflow:hidden;background:#fff}.cell.empty{background:#f1f0ec}
 .cell img{width:100%;height:100%;display:block}
 .page svg{position:absolute;inset:0;width:210mm;height:297mm}
 @media (max-width:820px){.app{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}#pages{zoom:.4}}
@@ -37,7 +37,7 @@ main{padding:24px;overflow:auto}
  #pages{zoom:1;display:block}
  .page{box-shadow:none;break-after:page;page-break-after:always}
  .page:last-child{break-after:auto;page-break-after:auto}
- .cell{background:none}.cell.empty{display:none}
+ .cell.empty{display:none}
  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
@@ -64,6 +64,7 @@ main{padding:24px;overflow:auto}
   <select id="copies"><option value="0">Penuhi 1 lembar</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select></label>
  <label>Isi foto
   <select id="fit"><option value="cover">Penuh (bagian lebih dipotong)</option><option value="contain">Utuh (ada sisi putih)</option></select></label>
+ <label>Border putih tiap sisi (mm)<input id="border" type="number" min="0" max="15" step="0.5" value="3"></label>
  <label>Jarak antar foto (mm)<input id="gap" type="number" min="0" max="20" step="0.5" value="0"></label>
  <label class="chk"><input id="rot" type="checkbox" checked> Putar foto otomatis mengikuti bingkai</label>
  <div class="info" id="info"></div>
@@ -78,15 +79,29 @@ const M=3,UW=210-2*M,UH=297-2*M;
 const $=id=>document.getElementById(id);
 let photos=[];
 
-function layout(w,h,g){
-  const f=(a,b)=>({cw:a,ch:b,cols:Math.max(0,Math.floor((UW+g)/(a+g))),rows:Math.max(0,Math.floor((UH+g)/(b+g)))});
-  const p=f(w,h),l=f(h,w);
-  return (l.cols*l.rows>p.cols*p.rows)?l:p;
+function pack(w,h,g){
+  let best=[];
+  const cnt=(a,b,W,H)=>({c:Math.max(0,Math.floor((W+g)/(a+g))),r:Math.max(0,Math.floor((H+g)/(b+g)))});
+  const grid=(a,b,c,r,x0,y0)=>{const o=[];for(let i=0;i<r;i++)for(let j=0;j<c;j++)o.push([x0+j*(a+g),y0+i*(b+g),a,b]);return o};
+  for(const [a,b] of [[w,h],[h,w]]){
+    const m=cnt(a,b,UW,UH);
+    for(let k=1;k<=m.r;k++){           // sisa ruang di bawah diisi orientasi lain
+      const y0=k*(b+g),s=cnt(b,a,UW,UH-y0);
+      const all=grid(a,b,m.c,k,0,0).concat(grid(b,a,s.c,s.r,0,y0));
+      if(all.length>best.length)best=all;
+    }
+    for(let k=1;k<=m.c;k++){           // sisa ruang di kanan diisi orientasi lain
+      const x0=k*(a+g),s=cnt(b,a,UW-x0,UH);
+      const all=grid(a,b,k,m.r,0,0).concat(grid(b,a,s.c,s.r,x0,0));
+      if(all.length>best.length)best=all;
+    }
+  }
+  return best;
 }
-function cellImage(img,cw,ch){
-  const pw=Math.round(cw/25.4*300),ph=Math.round(ch/25.4*300);
+function cellImage(img,iw,ih){
+  const pw=Math.round(iw/25.4*300),ph=Math.round(ih/25.4*300);
   const sw=img.naturalWidth,sh=img.naturalHeight;
-  const rot=$('rot').checked&&((sw>sh)!==(cw>ch));
+  const rot=$('rot').checked&&((sw>sh)!==(iw>ih));
   const c=document.createElement('canvas');c.width=pw;c.height=ph;
   const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,pw,ph);
   const tw=rot?ph:pw,th=rot?pw:ph;
@@ -95,40 +110,37 @@ function cellImage(img,cw,ch){
   x.drawImage(img,-sw*s/2,-sh*s/2,sw*s,sh*s);
   return c.toDataURL('image/jpeg',.92);
 }
+function getSrc(p,cw,ch,b){
+  const k=cw+'x'+ch;p._c=p._c||{};
+  return p._c[k]||(p._c[k]=cellImage(p,cw-2*b,ch-2*b));
+}
 function render(){
   const [w,h]=SIZES[$('size').value],g=Math.max(0,parseFloat($('gap').value)||0);
-  const L=layout(w,h,g),per=L.cols*L.rows,root=$('pages');
-  root.innerHTML='';
+  const b=Math.min(Math.max(0,parseFloat($('border').value)||0),Math.min(w,h)/2-1);
+  const cells=pack(w,h,g),per=cells.length,root=$('pages');
+  root.innerHTML='';photos.forEach(p=>p._c={});
   if(!per){$('info').textContent='Ukuran terlalu besar untuk A4 dengan margin 3 mm.';return}
   const n=+$('copies').value||per;
-  let seq=[];
-  photos.forEach((p,i)=>{ // tiap foto mulai di halaman baru bila "penuhi lembar"
-    const src=cellImage(p,L.cw,L.ch);
-    for(let k=0;k<n;k++)seq.push(src);
-    if(!+$('copies').value===false&&false){}
-  });
+  const seq=[];photos.forEach(p=>{for(let k=0;k<n;k++)seq.push(p)});
   const pages=Math.max(1,Math.ceil(seq.length/per));
-  const gw=L.cols*L.cw+(L.cols-1)*g,gh=L.rows*L.ch+(L.rows-1)*g;
-  const ox=M+(UW-gw)/2,oy=M+(UH-gh)/2;
+  const mx=Math.max(...cells.map(c=>c[0]+c[2])),my=Math.max(...cells.map(c=>c[1]+c[3]));
+  const ox=M+(UW-mx)/2,oy=M+(UH-my)/2;
   for(let pg=0;pg<pages;pg++){
     const page=document.createElement('div');page.className='page';
     let rects='';
-    for(let r=0;r<L.rows;r++)for(let c=0;c<L.cols;c++){
-      const x=ox+c*(L.cw+g),y=oy+r*(L.ch+g),src=seq[pg*per+r*L.cols+c];
-      if(src){
-        const d=document.createElement('div');d.className='cell';
-        d.style.cssText=`left:${x}mm;top:${y}mm;width:${L.cw}mm;height:${L.ch}mm`;
-        d.innerHTML=`<img src="${src}" alt="">`;page.appendChild(d);
-        rects+=`<rect x="${x}" y="${y}" width="${L.cw}" height="${L.ch}"/>`;
-      }else{
-        const d=document.createElement('div');d.className='cell empty';
-        d.style.cssText=`left:${x}mm;top:${y}mm;width:${L.cw}mm;height:${L.ch}mm`;page.appendChild(d);
-      }
-    }
+    cells.forEach((c,i)=>{
+      const x=ox+c[0],y=oy+c[1],p=seq[pg*per+i];
+      const d=document.createElement('div');
+      d.className='cell'+(p?'':' empty');
+      d.style.cssText=`left:${x}mm;top:${y}mm;width:${c[2]}mm;height:${c[3]}mm;padding:${b}mm`;
+      if(p){d.innerHTML=`<img src="${getSrc(p,c[2],c[3],b)}" alt="">`;rects+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`}
+      page.appendChild(d);
+    });
     page.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="0.1">${rects}</g></svg>`);
     root.appendChild(page);
   }
-  $('info').innerHTML=`<b>${per} foto</b> per lembar (${L.cols} × ${L.rows}${L.cw!==w?', dirotasi':''})<br>${photos.length} foto → ${photos.length?pages:0} lembar A4<br>Margin 3 mm, garis potong 0,1 mm`;
+  const tegak=cells.filter(c=>c[3]>=c[2]).length;
+  $('info').innerHTML=`<b>${per} foto</b> per lembar (${tegak} tegak + ${per-tegak} rebah)<br>${photos.length} foto → ${photos.length?pages:0} lembar A4<br>Garis potong = ukuran ${$('size').value} penuh, border putih ${b} mm<br>Margin 3 mm, garis 0,1 mm`;
 }
 function addFiles(files){
   const jobs=[...files].filter(f=>f.type.startsWith('image/')).map(f=>new Promise(res=>{
@@ -142,7 +154,7 @@ $('file').onchange=e=>{addFiles(e.target.files);e.target.value=''};
 $('drop').ondragover=e=>{e.preventDefault();$('drop').classList.add('on')};
 $('drop').ondragleave=()=>$('drop').classList.remove('on');
 $('drop').ondrop=e=>{e.preventDefault();$('drop').classList.remove('on');addFiles(e.dataTransfer.files)};
-['size','copies','fit','gap','rot'].forEach(id=>$(id).addEventListener('input',render));
+['size','copies','fit','gap','rot','border'].forEach(id=>$(id).addEventListener('input',render));
 $('clear').onclick=()=>{photos=[];render()};
 $('print').onclick=()=>window.print();
 render();
