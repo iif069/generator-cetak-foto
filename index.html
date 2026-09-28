@@ -30,7 +30,7 @@ main{padding:24px;overflow:auto}
 .cell{position:absolute;overflow:hidden;background:#fff}
 .cell img{width:100%;height:100%;display:block}
 .page svg{position:absolute;inset:0;width:100%;height:100%}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.two[hidden]{display:none}.two input{min-width:0;width:100%}
 @media (max-width:820px){.app{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}#pages{zoom:.4}}
 @media print{
  .ghost{display:none}
@@ -61,6 +61,12 @@ main{padding:24px;overflow:auto}
   <label>Lebar (mm)<input id="pw" type="number" min="30" step="1" value="150"></label>
   <label>Tinggi (mm)<input id="ph" type="number" min="30" step="1" value="200"></label>
  </div>
+ <label>Posisi susunan di kertas
+  <select id="align">
+   <option value="tc">Atas tengah (sisa di bawah)</option>
+   <option value="tl">Atas kiri</option>
+   <option value="c">Tengah</option>
+  </select></label>
  <label>Ukuran foto
   <select id="size">
    <option value="1R">1R (5 × 7,5 cm)</option>
@@ -79,6 +85,7 @@ main{padding:24px;overflow:auto}
   <select id="fit"><option value="cover">Penuh (bagian lebih dipotong)</option><option value="contain">Utuh (ada sisi putih)</option></select></label>
  <label>Border putih tiap sisi (mm)<input id="border" type="number" min="0" max="15" step="0.5" value="3"></label>
  <label>Jarak antar foto (mm)<input id="gap" type="number" min="0" max="20" step="0.5" value="0"></label>
+ <label>Tebal garis potong (mm)<input id="lw" type="number" min="0.01" max="0.5" step="0.01" value="0.05"></label>
  <label class="chk"><input id="rot" type="checkbox" checked> Putar foto otomatis mengikuti bingkai</label>
  <div class="info" id="info"></div>
  <button id="print">Cetak / Simpan PDF</button>
@@ -136,6 +143,7 @@ function render(){
   pgStyle.textContent=`@media print{@page{size:${PW}mm ${PH}mm;margin:0}}`;
   const [w,h]=SIZES[$('size').value],g=Math.max(0,parseFloat($('gap').value)||0);
   const b=Math.min(Math.max(0,parseFloat($('border').value)||0),Math.min(w,h)/2-1);
+  const lw=Math.max(0.01,parseFloat($('lw').value)||0.05);
   const cells=pack(w,h,g),per=cells.length,root=$('pages');
   root.innerHTML='';photos.forEach(p=>p._c={});
   if(!per){$('info').textContent='Ukuran foto terlalu besar untuk kertas ini (margin 3 mm).';return}
@@ -143,7 +151,7 @@ function render(){
   const seq=[];photos.forEach(p=>{for(let k=0;k<n;k++)seq.push(p)});
   const pages=Math.max(1,Math.ceil(seq.length/per));
   const mx=Math.max(...cells.map(c=>c[0]+c[2])),my=Math.max(...cells.map(c=>c[1]+c[3]));
-  const ox=M+(UW-mx)/2,oy=M+(UH-my)/2;
+  const al=$('align').value,ox=al==='tl'?M:M+(UW-mx)/2,oy=al==='c'?M+(UH-my)/2:M;
   for(let pg=0;pg<pages;pg++){
     const page=document.createElement('div');page.className='page';page.style.width=PW+'mm';page.style.height=PH+'mm';
     let rects='',ghost='';
@@ -156,11 +164,11 @@ function render(){
       if(!p&&!photos.length)ghost+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`;
       page.appendChild(d);
     });
-    page.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 ${PW} ${PH}" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="0.1">${rects}</g><g class="ghost" fill="none" stroke="#bbb" stroke-width="0.2">${ghost}</g></svg>`);
+    page.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 ${PW} ${PH}" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="${lw}">${rects}</g><g class="ghost" fill="none" stroke="#bbb" stroke-width="0.2">${ghost}</g></svg>`);
     root.appendChild(page);
   }
   const tegak=cells.filter(c=>c[3]>=c[2]).length;
-  $('info').innerHTML=`<b>${per} foto</b> per lembar (${tegak} tegak + ${per-tegak} rebah)<br>${photos.length} foto → ${photos.length?pages:0} lembar<br>Garis potong = ukuran ${$('size').value} penuh, border putih ${b} mm<br>Kertas ${PW} × ${PH} mm, margin 3 mm, garis 0,1 mm`;
+  $('info').innerHTML=`<b>${per} foto</b> per lembar (${tegak} tegak + ${per-tegak} rebah)<br>${photos.length} foto → ${photos.length?pages:0} lembar<br>Garis potong = ukuran ${$('size').value} penuh, border putih ${b} mm<br>Kertas ${PW} × ${PH} mm, margin 3 mm, garis ${lw} mm`;
 }
 function addFiles(files){
   const jobs=[...files].filter(f=>f.type.startsWith('image/')).map(f=>new Promise(res=>{
@@ -174,7 +182,7 @@ $('file').onchange=e=>{addFiles(e.target.files);e.target.value=''};
 $('drop').ondragover=e=>{e.preventDefault();$('drop').classList.add('on')};
 $('drop').ondragleave=()=>$('drop').classList.remove('on');
 $('drop').ondrop=e=>{e.preventDefault();$('drop').classList.remove('on');addFiles(e.dataTransfer.files)};
-['paper','pw','ph','size','copies','fit','gap','rot','border'].forEach(id=>$(id).addEventListener('input',render));
+['paper','pw','ph','size','copies','fit','gap','rot','border','lw','align'].forEach(id=>$(id).addEventListener('input',render));
 $('clear').onclick=()=>{photos=[];render()};
 $('print').onclick=()=>window.print();
 render();
