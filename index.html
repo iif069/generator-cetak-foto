@@ -3,47 +3,116 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Susun Foto R ke A4</title>
+<title>Susun Foto R ke A4 | MIG Digital Printing</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAA/lJREFUeAHt3bGrlWUcwPHHKLDhho5XIbAhsiYtGqIpbGlS/4Aaaou2hsi1pMG5LZCisWhqsZzCoShoUSNIENTIIfEGXsiwXvsDziucw/F+7+cDd3s4cDhfDi/3x/M7e04dPndvQMQjA0IETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJqUR8eKfHDx2FimW9e2x5lXv5t19uTp58bR45tjmb58/+L46avrC8/tO7h3vHvu5THHJ2/8OK788OdYplW891WYPsvpM10239CkCJoUQZMiaFIETYqgSRE0KYImZWWDlbkufXtz3Li8tfDc9tbdceTEgTHH75e2xvlrdxae27vx6Hjp9SdHyaVv/vhvYLH4va/b9u1/xio8FEHPmcBN5k4fp6nehc+uLjw3TfVyQZ+/ef9vt/LIQYqgSRE0KYImRdCkCJoUQZMiaFLWPlh5EGeOzbuCNU0VS6YB0FtnX5h19vN3fp41ea3aUUHfur78O2g7xRT1HNM4fzfzyEGKoEkRNCmCJkXQpAiaFEGTsrJ/Ws69hTI59OL+WeeufL/cPXDMs/nMxtj7xOJUtm/fXftQZ2VBT9eg5njl7afGydPPLjz3IMsaWa7X3nt61pfOtHhyWkC5Th45SBE0KYImRdCkCJoUQZMiaFIETcrarzdME8U5E8Dtrb8H6/H1R7+MvRuPLTy37+Dj4+SHi4dk/7/mryv5TNce9DQBXMXPe7E8Ny7/NevcoT1jHD0xL+jzH/+2kqA9cpAiaFIETYqgSRE0KYImRdCk7O69UWP+erE7sX1508qwOdeqJjtpTrCrg75/revY7rzWtXl4Y7x59vlZZ6drVdP1qp3AIwcpgiZF0KQImhRBkyJoUgRNiqBJWdlgZdpZ97Cbfi3rwqdXR8mREwdm7aGbFit+MXP/4PR6c15z/8wfNlqlXR30NCmsBX30+Oascw+yWHGaKM7dELtuHjlIETQpgiZF0KQImhRBkyJoUgRNyp5Th8/dGxDhG5oUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCk/AsSc7euPXhOEQAAAABJRU5ErkJggg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#e9e8e4;--panel:#fff;--ink:#1b1b1a;--mute:#6b6a66;--line:#d6d4cd;--acc:#1f5eff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1c1b;--panel:#2a2a28;--ink:#f0efea;--mute:#a09e97;--line:#43423e;--acc:#6f9bff}}
-:root[data-theme="dark"]{--bg:#1c1c1b;--panel:#2a2a28;--ink:#f0efea;--mute:#a09e97;--line:#43423e;--acc:#6f9bff}
+:root{--acc:#7B29BA;--acc-d:#6A1FA6;--tint:#F3E4FC;--tint-2:#F8F1FD;--acc-ink:#5A1D8C;--ink:#1B1623;--mute:#6B6478;--line:#E4DFEC;--track:#F3EEF8;--stage:#F6F4F9;--panel:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
-aside{background:var(--panel);border-right:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:16px}
-h1{font-size:19px;margin:0}
-p.s{margin:0;color:var(--mute);font-size:13px}
-label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--mute)}
-select,input[type=number]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px}
-.chk{flex-direction:row;align-items:center;gap:8px;color:var(--ink)}
-.drop{border:1.5px dashed var(--line);border-radius:8px;padding:18px;text-align:center;cursor:pointer;color:var(--mute);font-size:14px}
-.drop:hover,.drop.on{border-color:var(--acc);color:var(--acc)}
-button{font:inherit;border:0;border-radius:6px;padding:10px 14px;cursor:pointer;background:var(--acc);color:#fff;font-weight:600}
-button.g{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:400}
-button:focus-visible,select:focus-visible,input:focus-visible,.drop:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.info{font-size:13px;background:var(--bg);border-radius:6px;padding:10px}
-main{padding:24px;overflow:auto}
-#pages{zoom:.62;display:flex;flex-direction:column;align-items:center;gap:24px}
-.page{position:relative;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.18);flex:none}
+body{margin:0;background:var(--panel);color:var(--ink);font:13px/1.5 'Sora',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.app{display:grid;grid-template-columns:300px minmax(0,1fr);height:100vh;height:100dvh}
+
+aside{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.head{display:flex;align-items:center;gap:12px;padding:18px 18px 14px}
+.logo{width:36px;height:36px;border-radius:9px;display:block;flex:none}
+h1{font-size:15px;font-weight:600;margin:0;line-height:1.3}
+.s{margin:0;color:var(--mute);font-size:11.5px;line-height:1.4}
+.side{flex:1;min-height:0;overflow:auto;padding:0 18px 16px;display:flex;flex-direction:column;gap:20px}
+.step{display:flex;flex-direction:column;gap:12px}
+.st{display:flex;align-items:center;gap:8px;font-weight:500;font-size:13px}
+.st i{width:20px;height:20px;border-radius:50%;background:var(--acc);color:#fff;font-style:normal;font-size:11px;display:flex;align-items:center;justify-content:center}
+
+.fld{display:flex;flex-direction:column;gap:6px;margin:0}
+.fl{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--mute)}
+.hint{color:var(--ink);text-align:right}
+select,input[type=number]{font:inherit;font-size:12px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 9px;width:100%;min-width:0}
+input[type=number]:hover,select:hover{border-color:#cfc6dc}
+
+.seg{display:flex;background:var(--track);border-radius:9px;padding:3px;gap:2px}
+.seg button{flex:1;min-width:0;background:transparent;color:var(--mute);border:0;border-radius:7px;padding:7px 4px;font:inherit;font-size:12px;font-weight:400;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--acc);color:#fff;font-weight:500}
+.chips{display:grid;gap:6px}
+.chips.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.chips.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.chips button{background:#fff;color:var(--mute);border:1px solid var(--line);border-radius:9px;padding:7px 2px;font:inherit;font-size:12px;font-weight:400;cursor:pointer}
+.chips button:hover,.seg button:hover:not([aria-pressed="true"]){color:var(--ink)}
+.chips button[aria-pressed="true"]{border-color:var(--acc);background:var(--tint);color:var(--acc-ink);font-weight:500}
+
+.drop{border:1.5px dashed #C9A6E8;background:var(--tint-2);border-radius:12px;padding:16px 12px;text-align:center;cursor:pointer;color:var(--acc);font-size:12px}
+.drop svg{display:block;margin:0 auto 4px}
+.drop small{display:block;color:var(--mute);font-size:11px;margin-top:2px}
+.drop:hover,.drop.on{background:var(--tint);border-color:var(--acc)}
+.rows{max-height:200px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.prow{display:grid;grid-template-columns:34px 40px minmax(0,1fr) 30px;gap:6px;align-items:center;font-size:11px;color:var(--mute)}
+.prow img{width:34px;height:34px;object-fit:cover;border-radius:6px;display:block}
+.prow select{padding:5px 6px;font-size:11px}
+button.x{background:transparent;border:1px solid var(--line);color:var(--mute);border-radius:7px;padding:5px 0;font:inherit;cursor:pointer}
+button.x:hover{border-color:var(--acc);color:var(--acc)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.three .fl{font-size:11px}
+
+details{border:1px solid var(--line);border-radius:10px}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;color:var(--mute);font-size:12px}
+summary::-webkit-details-marker{display:none}
+summary svg{transition:transform .15s}
+details[open] summary svg{transform:rotate(180deg)}
+details[open] summary{color:var(--ink)}
+.adv{padding:2px 12px 14px;display:flex;flex-direction:column;gap:14px}
+.cap{margin:0;color:var(--mute);font-size:11px;line-height:1.5}
+
+.foot{border-top:1px solid var(--line);padding:14px 18px 18px;display:flex;flex-direction:column;gap:6px;background:var(--panel)}
+.sum{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--mute)}
+.sum b{color:var(--ink);font-weight:500;text-align:right}
+.note{margin:0;color:#A32D2D;font-size:11.5px}
+.pri{margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--acc);color:#fff;border:0;border-radius:10px;padding:12px 14px;font:inherit;font-size:13px;font-weight:500;cursor:pointer}
+.pri:hover{background:var(--acc-d)}
+.lnk{background:transparent;border:0;color:var(--mute);font:inherit;font-size:11.5px;padding:8px;cursor:pointer}
+.lnk:hover{color:var(--acc)}
+
+button:focus-visible,select:focus-visible,input:focus-visible,.drop:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+main{display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--stage)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px;background:var(--panel);border-bottom:1px solid var(--line)}
+.bl,.br{display:flex;align-items:center;gap:12px}
+.chip{background:var(--tint);color:var(--acc-ink);border-radius:7px;padding:4px 10px;font-size:11.5px;font-weight:500}
+.chk{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--mute);cursor:pointer}
+.chk input{accent-color:var(--acc);width:15px;height:15px;margin:0}
+.ic{background:transparent;border:1px solid var(--line);color:var(--mute);width:28px;height:28px;border-radius:7px;font:inherit;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ic:hover{border-color:var(--acc);color:var(--acc)}
+#zv{min-width:38px;text-align:center;font-size:11.5px;color:var(--mute)}
+.stage{flex:1;min-height:0;overflow:auto;padding:24px;position:relative}
+#pages{display:flex;flex-direction:column;align-items:center;gap:24px}
+.page{position:relative;background:#fff;border:1px solid #D4CDE0;flex:none}
 .cell{position:absolute;overflow:hidden;background:#fff}
 .cell img{width:100%;height:100%;display:block}
 .page svg{position:absolute;inset:0;width:100%;height:100%}
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.two[hidden]{display:none}label[hidden]{display:none}#plist[hidden]{display:none}
-.rows{max-height:230px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-top:8px}
-.prow{display:grid;grid-template-columns:36px 42px minmax(0,1fr) 32px;gap:6px;align-items:center;font-size:12px;color:var(--mute)}
-.prow img{width:36px;height:36px;object-fit:cover;border-radius:4px}
-.prow select{padding:5px;font-size:12px;min-width:0}
-button.x{padding:4px 0}.two input{min-width:0;width:100%}
-@media (max-width:820px){.app{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}#pages{zoom:.4}}
+.pager{display:flex;justify-content:center;align-items:center;gap:14px;padding:10px 18px;background:var(--panel);border-top:1px solid var(--line);font-size:11.5px;color:var(--mute)}
+
+.kcv{width:100%;display:block;margin:0 auto;border-radius:10px;border:1px solid var(--line);background:var(--track);touch-action:none;cursor:crosshair}
+.krow{display:flex;gap:6px;flex-wrap:wrap}
+.krow button{flex:1;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:7px 8px;font:inherit;font-size:11.5px;cursor:pointer;white-space:nowrap}
+.krow button:hover{border-color:var(--acc);color:var(--acc)}
+@media (max-width:820px){
+ .app{display:block;height:auto}
+ aside{border-right:0;border-bottom:1px solid var(--line)}
+ .side{overflow:visible}
+ main{height:auto}
+ .stage{height:70vh;padding:16px}
+}
 @media print{
- .ghost{display:none}
- body{background:#fff}.app{display:block}aside{display:none}main{padding:0;overflow:visible}
- #pages{zoom:1;display:block}
- .page{box-shadow:none;break-after:page;page-break-after:always}
+ .app{display:block;height:auto}
+ aside,.bar,.pager{display:none}
+ body,main{background:#fff;display:block;height:auto}
+ .stage{overflow:visible;padding:0}
+ #pages{zoom:1!important;display:block}
+ .page{border:0;break-after:page;page-break-after:always}
  .page:last-child{break-after:auto;page-break-after:auto}
- .cell.empty{display:none}
+ .cell.empty,.ghost{display:none}
  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
@@ -51,71 +120,161 @@ button.x{padding:4px 0}.two input{min-width:0;width:100%}
 <body>
 <div class="app">
 <aside>
- <div><h1>Susun Foto R ke A4</h1><p class="s">Foto otomatis memenuhi lembar kertas, siap cetak.</p></div>
- <div class="drop" id="drop" tabindex="0" role="button">Klik atau tarik foto ke sini<br><span style="font-size:12px">bisa banyak sekaligus</span></div>
- <input id="file" type="file" accept="image/*" multiple hidden>
- <div id="plist" hidden></div>
- <label>Kertas
-  <select id="paper">
-   <option value="210x297">A4 (210 × 297 mm)</option>
-   <option value="297x420">A3 (297 × 420 mm)</option>
-   <option value="329x483">A3+ (329 × 483 mm)</option>
-   <option value="215x330">F4 (215 × 330 mm)</option>
-   <option value="custom">Custom (kertas sisa)</option>
-  </select></label>
- <div class="two" id="custom" hidden>
-  <label>Lebar (mm)<input id="pw" type="number" min="30" step="1" value="150"></label>
-  <label>Tinggi (mm)<input id="ph" type="number" min="30" step="1" value="200"></label>
+ <div class="head">
+  <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAA/lJREFUeAHt3bGrlWUcwPHHKLDhho5XIbAhsiYtGqIpbGlS/4Aaaou2hsi1pMG5LZCisWhqsZzCoShoUSNIENTIIfEGXsiwXvsDziucw/F+7+cDd3s4cDhfDi/3x/M7e04dPndvQMQjA0IETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJqUR8eKfHDx2FimW9e2x5lXv5t19uTp58bR45tjmb58/+L46avrC8/tO7h3vHvu5THHJ2/8OK788OdYplW891WYPsvpM10239CkCJoUQZMiaFIETYqgSRE0KYImZWWDlbkufXtz3Li8tfDc9tbdceTEgTHH75e2xvlrdxae27vx6Hjp9SdHyaVv/vhvYLH4va/b9u1/xio8FEHPmcBN5k4fp6nehc+uLjw3TfVyQZ+/ef9vt/LIQYqgSRE0KYImRdCkCJoUQZMiaFLWPlh5EGeOzbuCNU0VS6YB0FtnX5h19vN3fp41ea3aUUHfur78O2g7xRT1HNM4fzfzyEGKoEkRNCmCJkXQpAiaFEGTsrJ/Ws69hTI59OL+WeeufL/cPXDMs/nMxtj7xOJUtm/fXftQZ2VBT9eg5njl7afGydPPLjz3IMsaWa7X3nt61pfOtHhyWkC5Th45SBE0KYImRdCkCJoUQZMiaFIETcrarzdME8U5E8Dtrb8H6/H1R7+MvRuPLTy37+Dj4+SHi4dk/7/mryv5TNce9DQBXMXPe7E8Ny7/NevcoT1jHD0xL+jzH/+2kqA9cpAiaFIETYqgSRE0KYImRdCk7O69UWP+erE7sX1508qwOdeqJjtpTrCrg75/revY7rzWtXl4Y7x59vlZZ6drVdP1qp3AIwcpgiZF0KQImhRBkyJoUgRNiqBJWdlgZdpZ97Cbfi3rwqdXR8mREwdm7aGbFit+MXP/4PR6c15z/8wfNlqlXR30NCmsBX30+Oascw+yWHGaKM7dELtuHjlIETQpgiZF0KQImhRBkyJoUgRNyp5Th8/dGxDhG5oUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCk/AsSc7euPXhOEQAAAABJRU5ErkJggg==" alt="MIG Digital Printing">
+  <div><h1>Susun foto</h1><p class="s">Foto otomatis memenuhi lembar kertas, siap cetak.</p></div>
  </div>
- <label>Mode
-  <select id="mode">
-   <option value="r">Foto ukuran R (1R, 2R, dst)</option>
-   <option value="split">Bagi kertas jadi 2 atau 4</option>
-  </select></label>
- <label id="lblSplit" hidden>Pembagian kertas
-  <select id="split">
-   <option value="2h">2 bagian (atas-bawah)</option>
-   <option value="2v">2 bagian (kiri-kanan)</option>
-   <option value="4">4 bagian (2 × 2)</option>
-  </select></label>
- <label>Posisi susunan di kertas
-  <select id="align">
-   <option value="tc">Atas tengah (sisa di bawah)</option>
-   <option value="tl">Atas kiri</option>
-   <option value="c">Tengah</option>
-  </select></label>
- <label id="lblSize">Ukuran foto
-  <select id="size">
-   <option value="1R">1R (5 × 7,5 cm)</option>
-   <option value="2R">2R (6 × 9 cm)</option>
-   <option value="3R">3R (8,9 × 12,7 cm)</option>
-   <option value="4R">4R (10,2 × 15,2 cm)</option>
-   <option value="5R">5R (12,7 × 17,8 cm)</option>
-   <option value="6R">6R (15,2 × 20,3 cm)</option>
-   <option value="P23">Pas foto 2 × 3 cm</option>
-   <option value="P34">Pas foto 3 × 4 cm</option>
-   <option value="P46">Pas foto 4 × 6 cm</option>
-  </select></label>
- <label>Salinan per foto
-  <select id="copies"><option value="0">Penuhi 1 lembar</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select></label>
- <label>Isi foto
-  <select id="fit"><option value="cover">Penuh (bagian lebih dipotong)</option><option value="contain">Utuh (ada sisi putih)</option></select></label>
- <label>Border putih tiap sisi (mm)<input id="border" type="number" min="0" max="15" step="0.5" value="3"></label>
- <label>Jarak antar foto (mm)<input id="gap" type="number" min="0" max="20" step="0.5" value="0"></label>
- <label>Tebal garis potong (mm)<input id="lw" type="number" min="0.01" max="0.5" step="0.01" value="0.01"></label>
- <label class="chk"><input id="rot" type="checkbox" checked> Mode Otomatis: putar foto mengikuti bingkai</label>
- <div class="info" id="info"></div>
- <button id="print">Cetak / Simpan PDF</button>
- <button class="g" id="clear">Hapus semua foto</button>
+
+ <div class="side">
+  <div class="fld"><div class="fl"><span>Mode</span></div>
+   <select id="mode" hidden>
+    <option value="r">Foto ukuran R (1R, 2R, dst)</option>
+    <option value="split">Bagi kertas jadi 2 atau 4</option>
+    <option value="ktp">FC KTP (bagian depan)</option>
+   </select></div>
+
+  <section class="step" id="stepPhoto">
+   <div class="st"><i>1</i>Foto</div>
+   <div class="drop" id="drop" tabindex="0" role="button">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    Tarik foto ke sini atau klik untuk pilih
+    <small>bisa banyak sekaligus</small>
+   </div>
+   <input id="file" type="file" accept="image/*" multiple hidden>
+   <div id="plist" hidden></div>
+  </section>
+
+  <section class="step" id="stepKtp" hidden>
+   <div class="st"><i>1</i>Foto KTP (bagian depan)</div>
+   <div class="drop" id="kdrop" tabindex="0" role="button">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <span id="kdropt">Tarik foto KTP ke sini atau klik untuk pilih</span>
+    <small>Foto tidak diunggah, diproses di browser ini</small>
+   </div>
+   <input id="kfile" type="file" accept="image/*" hidden>
+   <div id="kedit" class="step" hidden>
+    <canvas id="kcv" class="kcv" aria-label="Atur 4 sudut KTP"></canvas>
+    <p class="cap">Seret 4 titik ke sudut KTP, hasilnya otomatis diluruskan. Titik ungu = pojok kiri atas KTP.</p>
+    <div class="krow">
+     <button type="button" id="kauto">Deteksi ulang</button>
+     <button type="button" id="krot">Putar 90°</button>
+     <button type="button" id="kreset">Atur ulang</button>
+    </div>
+    <div class="fld"><div class="fl"><span>Warna hasil</span></div>
+     <select id="kcolor" hidden><option value="color">Warna</option><option value="bw">Hitam putih</option></select></div>
+   </div>
+  </section>
+
+  <section class="step">
+   <div class="st"><i>2</i>Ukuran</div>
+
+   <div class="fld"><div class="fl"><span>Kertas</span><span class="hint"></span></div>
+    <select id="paper" hidden>
+     <option value="210x297">A4 (210 × 297 mm)</option>
+     <option value="297x420">A3 (297 × 420 mm)</option>
+     <option value="329x483">A3+ (329 × 483 mm)</option>
+     <option value="215x330">F4 (215 × 330 mm)</option>
+     <option value="custom">Custom (kertas sisa)</option>
+    </select></div>
+   <div class="two" id="custom" hidden>
+    <label class="fld"><span class="fl">Lebar (mm)</span><input id="pw" type="number" min="30" step="1" value="150"></label>
+    <label class="fld"><span class="fl">Tinggi (mm)</span><input id="ph" type="number" min="30" step="1" value="200"></label>
+   </div>
+
+   <div class="fld" id="lblSplit" hidden><div class="fl"><span>Pembagian kertas</span></div>
+    <select id="split" hidden>
+     <option value="2h">2 bagian (atas-bawah)</option>
+     <option value="2v">2 bagian (kiri-kanan)</option>
+     <option value="4">4 bagian (2 × 2)</option>
+    </select></div>
+
+   <div class="fld" id="lblSize"><div class="fl"><span>Ukuran foto</span><span class="hint"></span></div>
+    <select id="size" hidden>
+     <option value="1R">1R (5 × 7,5 cm)</option>
+     <option value="2R">2R (6 × 9 cm)</option>
+     <option value="3R">3R (8,9 × 12,7 cm)</option>
+     <option value="4R">4R (10,2 × 15,2 cm)</option>
+     <option value="5R">5R (12,7 × 17,8 cm)</option>
+     <option value="6R">6R (15,2 × 20,3 cm)</option>
+     <option value="P23">Pas foto 2 × 3 cm</option>
+     <option value="P34">Pas foto 3 × 4 cm</option>
+     <option value="P46">Pas foto 4 × 6 cm</option>
+    </select></div>
+
+   <div class="fld" id="lblCopies"><div class="fl"><span>Salinan per foto</span><span class="hint"></span></div>
+    <select id="copies" hidden><option value="0">Penuhi 1 lembar</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select></div>
+
+   <div class="fld" id="lblFit"><div class="fl"><span>Isi foto</span></div>
+    <select id="fit" hidden><option value="cover">Penuh (bagian lebih dipotong)</option><option value="contain">Utuh (ada sisi putih)</option></select></div>
+
+   <div class="fld" id="lblQty" hidden><div class="fl"><span>Jumlah KTP</span><span class="hint" id="qhint"></span></div>
+    <div class="chips c3" id="qchips"></div>
+    <input id="kqty" type="number" min="1" max="500" step="1" value="2" aria-label="Jumlah KTP">
+    <label class="fld"><span class="fl"><span>Jarak antar KTP (mm)</span></span><input id="kgap" type="number" min="0" max="40" step="1" value="10"></label>
+    <p class="cap" id="qcap"></p></div>
+  </section>
+
+  <details>
+   <summary>Lanjutan: posisi, border, jarak
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+   </summary>
+   <div class="adv">
+    <div class="fld"><div class="fl"><span>Posisi susunan di kertas</span></div>
+     <select id="align" hidden>
+      <option value="tc">Atas tengah (sisa di bawah)</option>
+      <option value="tl">Atas kiri</option>
+      <option value="c">Tengah</option>
+     </select></div>
+    <div class="three">
+     <label class="fld"><span class="fl">Border</span><input id="border" type="number" min="0" max="15" step="0.5" value="3"></label>
+     <label class="fld"><span class="fl">Jarak</span><input id="gap" type="number" min="0" max="20" step="0.5" value="0"></label>
+     <label class="fld"><span class="fl">Garis</span><input id="lw" type="number" min="0.01" max="0.5" step="0.01" value="0.01"></label>
+    </div>
+    <p class="cap">Semua dalam mm. Border = putih tiap sisi foto, jarak = celah antar foto, garis = tebal garis potong.</p>
+    <p class="cap" id="detail"></p>
+   </div>
+  </details>
+ </div>
+
+ <div class="foot">
+  <p class="note" id="note" role="status"></p>
+  <div class="sum"><span>Per lembar</span><b id="perCount">–</b></div>
+  <div class="sum"><span>Total</span><b id="totalInfo">0 foto</b></div>
+  <button class="pri" id="print">
+   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+   Cetak / simpan PDF
+  </button>
+  <button class="lnk" id="clear">Hapus semua foto</button>
+ </div>
 </aside>
-<main><div id="pages"></div></main>
+
+<main>
+ <div class="bar">
+  <div class="bl">
+   <span class="chip" id="chip">–</span>
+   <label class="chk" id="lblRot"><input id="rot" type="checkbox" checked> Putar otomatis mengikuti bingkai</label>
+  </div>
+  <div class="br">
+   <button class="ic" id="zo" aria-label="Perkecil pratinjau">−</button>
+   <span id="zv">62%</span>
+   <button class="ic" id="zi" aria-label="Perbesar pratinjau">+</button>
+  </div>
+ </div>
+ <div class="stage" id="stage"><div id="pages"></div></div>
+ <div class="pager">
+  <button class="ic" id="pp" aria-label="Lembar sebelumnya">‹</button>
+  <span id="pg">Lembar 1 dari 1</span>
+  <button class="ic" id="pn" aria-label="Lembar berikutnya">›</button>
+ </div>
+</main>
 </div>
+
 <script>
 const SIZES={'1R':[50,75],'2R':[60,90],'3R':[89,127],'4R':[102,152],'5R':[127,178],'6R':[152,203],'P23':[20,30],'P34':[30,40],'P46':[40,60]};
 const M=3;let PW=210,PH=297,UW=204,UH=291;
 const pgStyle=document.head.appendChild(document.createElement('style'));
 const $=id=>document.getElementById(id);
-let photos=[];
+let photos=[],Z=innerWidth<=820?.4:.62,cur=0;
 
 function pack(w,h,g){
   let best=[];
@@ -159,22 +318,224 @@ function getSrc(p,cw,ch,b){
   const k=cw+'x'+ch;p._c=p._c||{};
   return p._c[k]||(p._c[k]=cellImage(p,cw-2*b,ch-2*b));
 }
+
+/* ===== FC KTP: foto -> auto deteksi sudut -> luruskan perspektif ===== */
+const KP={ktp:true};
+let kimg=null,kpts=null,kurl='',kurlRot='',kwork=null,kdrag=-1,kraf=0;
+const KW=1012,KH=638;
+const imgSrc=(p,c,b)=>p===KP?(c[3]>c[2]?kurlRot:kurl):getSrc(p,c[2],c[3],b);
+
+function ktpCells(g){const c=Math.min(2,Math.floor((UW+g)/(85.6+g))),r=Math.min(4,Math.floor((UH+g)/(54+g))),o=[];for(let i=0;i<r;i++)for(let j=0;j<c;j++)o.push([j*(85.6+g),i*(54+g),85.6,54]);return o}
+function defaultQuad(nw,nh){const mx=nw*.1,my=nh*.1;return [[mx,my],[nw-mx,my],[nw-mx,nh-my],[mx,nh-my]]}
+function orient(q){
+  const d=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
+  const wd=(d(q[0],q[1])+d(q[3],q[2]))/2,ht=(d(q[0],q[3])+d(q[1],q[2]))/2;
+  return ht>wd?[q[3],q[0],q[1],q[2]]:q;
+}
+function detectQuad(img){
+  const nw=img.naturalWidth,nh=img.naturalHeight,sc=Math.min(1,420/Math.max(nw,nh));
+  const w=Math.round(nw*sc),h=Math.round(nh*sc),N=w*h;
+  const cv=document.createElement('canvas');cv.width=w;cv.height=h;
+  const cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(img,0,0,w,h);
+  const d=cx.getImageData(0,0,w,h).data;
+  const bw=Math.max(2,Math.round(Math.min(w,h)*.04)),R=[],G=[],B=[];
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++)if(x<bw||x>=w-bw||y<bw||y>=h-bw){const i=(y*w+x)*4;R.push(d[i]);G.push(d[i+1]);B.push(d[i+2])}
+  const med=a=>{a.sort((p,q)=>p-q);return a[a.length>>1]};
+  const br=med(R),bg=med(G),bb=med(B);
+  const hist=new Array(256).fill(0),dist=new Uint8Array(N);
+  for(let i=0;i<N;i++){const v=Math.min(255,Math.round(Math.hypot(d[i*4]-br,d[i*4+1]-bg,d[i*4+2]-bb)*255/442));dist[i]=v;hist[v]++}
+  let sum=0;for(let t=0;t<256;t++)sum+=t*hist[t];
+  let sb=0,wb=0,best=0,th=40;
+  for(let t=0;t<256;t++){wb+=hist[t];if(!wb)continue;const wf=N-wb;if(!wf)break;sb+=t*hist[t];const mb=sb/wb,mf=(sum-sb)/wf,v=wb*wf*(mb-mf)*(mb-mf);if(v>best){best=v;th=t}}
+  th=Math.max(th,12);
+  let m=new Uint8Array(N);for(let i=0;i<N;i++)m[i]=dist[i]>th?1:0;
+  const morph=(src,dil)=>{
+    const o=new Uint8Array(N);
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      let any=0,all=1;
+      for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
+        const xx=x+dx,yy=y+dy,out=xx<0||yy<0||xx>=w||yy>=h;
+        const v=out?(dil?0:1):src[yy*w+xx];
+        if(v)any=1;else all=0;
+      }
+      o[y*w+x]=dil?any:all;
+    }
+    return o;
+  };
+  for(let k=0;k<2;k++)m=morph(m,true);
+  for(let k=0;k<2;k++)m=morph(m,false);
+  const lab=new Int32Array(N),st=[];let bestId=0,bestN=0,id=0;
+  for(let i=0;i<N;i++){
+    if(!m[i]||lab[i])continue;
+    id++;let cnt=0;st.push(i);lab[i]=id;
+    while(st.length){
+      const q=st.pop();cnt++;const x=q%w,y=(q/w)|0;
+      if(x>0&&m[q-1]&&!lab[q-1]){lab[q-1]=id;st.push(q-1)}
+      if(x<w-1&&m[q+1]&&!lab[q+1]){lab[q+1]=id;st.push(q+1)}
+      if(y>0&&m[q-w]&&!lab[q-w]){lab[q-w]=id;st.push(q-w)}
+      if(y<h-1&&m[q+w]&&!lab[q+w]){lab[q+w]=id;st.push(q+w)}
+    }
+    if(cnt>bestN){bestN=cnt;bestId=id}
+  }
+  const frac=bestN/N;
+  if(frac<.06||frac>.92)return defaultQuad(nw,nh);
+  let minS=1e9,maxS=-1e9,minD=1e9,maxD=-1e9;const P=[null,null,null,null];
+  for(let i=0;i<N;i++){
+    if(lab[i]!==bestId)continue;
+    const x=i%w,y=(i/w)|0,s1=x+y,s2=x-y;
+    if(s1<minS){minS=s1;P[0]=[x,y]}
+    if(s2>maxD){maxD=s2;P[1]=[x,y]}
+    if(s1>maxS){maxS=s1;P[2]=[x,y]}
+    if(s2<minD){minD=s2;P[3]=[x,y]}
+  }
+  return orient(P.map(q=>[q[0]/sc,q[1]/sc]));
+}
+function drawEditor(){
+  const cv=$('kcv'),x=cv.getContext('2d'),s=cv.width/kimg.naturalWidth;
+  x.clearRect(0,0,cv.width,cv.height);x.drawImage(kimg,0,0,cv.width,cv.height);
+  x.beginPath();
+  kpts.forEach((q,i)=>i?x.lineTo(q[0]*s,q[1]*s):x.moveTo(q[0]*s,q[1]*s));
+  x.closePath();x.fillStyle='rgba(123,41,186,.14)';x.fill();
+  x.lineWidth=3;x.strokeStyle='#7B29BA';x.stroke();
+  kpts.forEach((q,i)=>{
+    x.beginPath();x.arc(q[0]*s,q[1]*s,11,0,7);
+    x.fillStyle=i?'#fff':'#7B29BA';x.fill();x.lineWidth=3;x.strokeStyle='#7B29BA';x.stroke();
+  });
+}
+function warpKtp(fast){
+  if(!kimg||!kpts)return;
+  const W=fast?506:KW,H=fast?319:KH;
+  const sc=Math.min(1,2200/Math.max(kimg.naturalWidth,kimg.naturalHeight));
+  if(!kwork||kwork.sc!==sc){
+    const c=document.createElement('canvas');c.width=Math.round(kimg.naturalWidth*sc);c.height=Math.round(kimg.naturalHeight*sc);
+    const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(kimg,0,0,c.width,c.height);
+    kwork={sc,w:c.width,h:c.height,d:x.getImageData(0,0,c.width,c.height).data};
+  }
+  const q=kpts.map(pt=>[pt[0]*sc,pt[1]*sc]);
+  const [x0,y0]=q[0],[x1,y1]=q[1],[x2,y2]=q[2],[x3,y3]=q[3];
+  const dx1=x1-x2,dx2=x3-x2,dx3=x0-x1+x2-x3,dy1=y1-y2,dy2=y3-y2,dy3=y0-y1+y2-y3;
+  const den=dx1*dy2-dy1*dx2;
+  let a,b,c,d,e,f,g=0,h=0;
+  if((Math.abs(dx3)<1e-9&&Math.abs(dy3)<1e-9)||Math.abs(den)<1e-9){
+    a=x1-x0;b=x3-x0;c=x0;d=y1-y0;e=y3-y0;f=y0;
+  }else{
+    g=(dx3*dy2-dy3*dx2)/den;h=(dx1*dy3-dy1*dx3)/den;
+    a=x1-x0+g*x1;b=x3-x0+h*x3;c=x0;d=y1-y0+g*y1;e=y3-y0+h*y3;f=y0;
+  }
+  const out=new ImageData(W,H),o=out.data,s=kwork.d,sw=kwork.w,sh=kwork.h,bw=$('kcolor').value==='bw';
+  for(let j=0;j<H;j++){
+    const v=(j+.5)/H;
+    for(let i=0;i<W;i++){
+      const u=(i+.5)/W,z=g*u+h*v+1;
+      const X=(a*u+b*v+c)/z-.5,Y=(d*u+e*v+f)/z-.5;
+      const xi=Math.floor(X),yi=Math.floor(Y),fx=X-xi,fy=Y-yi;
+      const xa=Math.min(sw-1,Math.max(0,xi)),xb=Math.min(sw-1,Math.max(0,xi+1));
+      const ya=Math.min(sh-1,Math.max(0,yi)),yb=Math.min(sh-1,Math.max(0,yi+1));
+      const i00=(ya*sw+xa)*4,i10=(ya*sw+xb)*4,i01=(yb*sw+xa)*4,i11=(yb*sw+xb)*4,k=(j*W+i)*4;
+      for(let t=0;t<3;t++)o[k+t]=s[i00+t]*(1-fx)*(1-fy)+s[i10+t]*fx*(1-fy)+s[i01+t]*(1-fx)*fy+s[i11+t]*fx*fy;
+      o[k+3]=255;
+      if(bw){let l=.299*o[k]+.587*o[k+1]+.114*o[k+2];l=(l-128)*1.15+128;l=l<0?0:l>255?255:l;o[k]=o[k+1]=o[k+2]=l}
+    }
+  }
+  const oc=document.createElement('canvas');oc.width=W;oc.height=H;oc.getContext('2d').putImageData(out,0,0);
+  kurl=oc.toDataURL('image/jpeg',.95);
+  const rc=document.createElement('canvas');rc.width=H;rc.height=W;
+  const rx=rc.getContext('2d');rx.translate(H,0);rx.rotate(Math.PI/2);rx.drawImage(oc,0,0);
+  kurlRot=rc.toDataURL('image/jpeg',.95);
+}
+function loadKtp(f){
+  if(!f||!f.type.startsWith('image/'))return;
+  const im=new Image();
+  im.onload=()=>{
+    kimg=im;kwork=null;
+    const cv=$('kcv');cv.width=560;cv.height=Math.round(560*im.naturalHeight/im.naturalWidth);
+    cv.style.maxWidth=Math.round(300*im.naturalWidth/im.naturalHeight)+'px';
+    $('kedit').hidden=false;$('kdropt').textContent='Ganti foto KTP';
+    kpts=detectQuad(im);drawEditor();warpKtp(false);render();
+  };
+  im.src=URL.createObjectURL(f);
+}
+function clearKtp(){
+  kimg=null;kpts=null;kurl='';kurlRot='';kwork=null;
+  $('kedit').hidden=true;$('kdropt').textContent='Tarik foto KTP ke sini atau klik untuk pilih';
+}
+
+/* kontrol pilihan: select asli disembunyikan, diganti tombol segmented / chip */
+function mk(id,labels,cls,name){
+  const s=$(id),g=document.createElement('div');
+  g.className=cls;g.dataset.for=id;g.setAttribute('role','group');g.setAttribute('aria-label',name);
+  [...s.options].forEach((o,i)=>{
+    const b=document.createElement('button');b.type='button';b.dataset.v=o.value;b.textContent=labels[i];b.title=o.text;
+    b.onclick=()=>{s.value=o.value;s.dispatchEvent(new Event('input',{bubbles:true}))};
+    g.appendChild(b);
+  });
+  s.after(g);
+}
+mk('paper',['A4','A3','A3+','F4','Custom'],'chips c3','Kertas');
+mk('mode',['Foto R','Bagi kertas','FC KTP'],'seg','Mode');
+mk('kcolor',['Warna','Hitam putih'],'seg','Warna hasil');
+mk('split',['Atas-bawah','Kiri-kanan','2 × 2'],'seg','Pembagian kertas');
+mk('size',['1R','2R','3R','4R','5R','6R','Pas 2×3','Pas 3×4','Pas 4×6'],'chips c3','Ukuran foto');
+mk('copies',['Penuh','1','2','3','4','6','8'],'chips c4','Salinan per foto');
+mk('fit',['Penuh','Utuh'],'seg','Isi foto');
+mk('align',['Atas tengah','Atas kiri','Tengah'],'seg','Posisi susunan di kertas');
+
+function syncCtl(){
+  document.querySelectorAll('[data-for]').forEach(g=>{
+    const id=g.dataset.for,s=$(id);
+    g.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===s.value)));
+    const h=g.parentElement.querySelector('.hint');
+    if(h){
+      const t=s.options[s.selectedIndex].text,m=t.match(/\((.*)\)/);
+      h.textContent=id==='copies'?(s.value==='0'?'Penuhi 1 lembar':s.value+' salinan'):(m?m[1]:t);
+    }
+  });
+}
+function setZ(v){
+  Z=Math.min(1.5,Math.max(.2,Math.round(v*100)/100));
+  $('pages').style.zoom=Z;$('zv').textContent=Math.round(Z*100)+'%';
+}
+function upPg(){
+  const n=$('pages').children.length||1;cur=Math.min(cur,n-1);
+  const nm=$('paper').selectedOptions[0].text.split(' (')[0];
+  $('pg').textContent=`Lembar ${cur+1} dari ${n} · ${nm} ${+PW.toFixed(1)} × ${+PH.toFixed(1)} mm`;
+}
+function goPage(d){
+  const ps=$('pages').children;if(!ps.length)return;
+  cur=Math.min(ps.length-1,Math.max(0,cur+d));
+  ps[cur].scrollIntoView({block:'start',behavior:'smooth'});upPg();
+}
+
 function render(){
+  syncCtl();
+  document.querySelectorAll('#qchips button').forEach(bt=>bt.setAttribute('aria-pressed',String(bt.dataset.q===String(Math.round(+$('kqty').value)))));
   const pv=$('paper').value;$('custom').hidden=pv!=='custom';
   if(pv==='custom'){PW=Math.max(30,parseFloat($('pw').value)||30);PH=Math.max(30,parseFloat($('ph').value)||30)}
   else{[PW,PH]=pv.split('x').map(Number)}
   UW=PW-2*M;UH=PH-2*M;
   pgStyle.textContent=`@page{size:${PW}mm ${PH}mm;margin:0}`;
-  const mode=$('mode').value;$('lblSize').hidden=mode==='split';$('lblSplit').hidden=mode!=='split';
-  const [w,h]=SIZES[$('size').value],g=Math.max(0,parseFloat($('gap').value)||0);
-  const cells=mode==='split'?splitCells(g):pack(w,h,g),per=cells.length,root=$('pages');
+  const mode=$('mode').value,isK=mode==='ktp';
+  $('stepPhoto').hidden=isK;$('stepKtp').hidden=!isK;
+  $('lblSize').hidden=mode!=='r';$('lblSplit').hidden=mode!=='split';
+  $('lblCopies').hidden=isK;$('lblFit').hidden=isK;$('lblQty').hidden=!isK;$('lblRot').hidden=isK;
+  const [w,h]=isK?[85.6,54]:SIZES[$('size').value],g=Math.max(0,parseFloat($('gap').value)||0);
+  const kg=Math.max(0,parseFloat($('kgap').value)||0);
+  const kc=isK?ktpCells(kg):[];
+  const cells=mode==='split'?splitCells(g):(isK&&kc.length?kc:pack(w,h,g)),per=cells.length,root=$('pages');
   const mn=per?Math.min(cells[0][2],cells[0][3]):0;
-  const b=Math.min(Math.max(0,parseFloat($('border').value)||0),Math.max(0,mn/2-1));
+  const b=isK?0:Math.min(Math.max(0,parseFloat($('border').value)||0),Math.max(0,mn/2-1));
   const lw=Math.max(0.01,parseFloat($('lw').value)||0.01);
   root.innerHTML='';photos.forEach(p=>p._c={});
-  if(!per){$('info').textContent='Ukuran foto terlalu besar untuk kertas ini (margin 3 mm).';return}
+  if(!per){
+    $('note').textContent='Ukuran foto terlalu besar untuk kertas ini (margin 3 mm).';
+    $('perCount').textContent='–';$('totalInfo').textContent='–';$('chip').textContent='Tidak muat';$('detail').textContent='';upPg();return;
+  }
+  $('note').textContent='';
+  const qty=Math.max(1,Math.min(500,Math.round(parseFloat($('kqty').value)||1)));
   const n=+$('copies').value||per;
-  const seq=[];photos.forEach(p=>{for(let k=0;k<n;k++)seq.push(p)});
+  const seq=[];
+  if(isK){if(kurl)for(let k=0;k<qty;k++)seq.push(KP)}
+  else photos.forEach(p=>{for(let k=0;k<n;k++)seq.push(p)});
   const pages=Math.max(1,Math.ceil(seq.length/per));
   const mx=Math.max(...cells.map(c=>c[0]+c[2])),my=Math.max(...cells.map(c=>c[1]+c[3]));
   const al=$('align').value,ox=al==='tl'?M:M+(UW-mx)/2,oy=al==='c'?M+(UH-my)/2:M;
@@ -186,25 +547,38 @@ function render(){
       const d=document.createElement('div');
       d.className='cell'+(p?'':' empty');
       d.style.cssText=`left:${x}mm;top:${y}mm;width:${c[2]}mm;height:${c[3]}mm;padding:${b}mm`;
-      if(p){d.innerHTML=`<img src="${getSrc(p,c[2],c[3],b)}" alt="">`;rects+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`}
-      if(!p&&!photos.length)ghost+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`;
+      if(p){d.innerHTML=`<img src="${imgSrc(p,c,b)}" alt="">`;rects+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`}
+      if(!p&&!(isK?kurl:photos.length))ghost+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`;
       page.appendChild(d);
     });
-    page.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 ${PW} ${PH}" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="${lw}">${rects}</g><g class="ghost" fill="none" stroke="#bbb" stroke-width="0.2">${ghost}</g></svg>`);
+    page.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 ${PW} ${PH}" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="${lw}">${rects}</g><g class="ghost" fill="#F3E4FC" stroke="#C9A6E8" stroke-width="0.2">${ghost}</g></svg>`);
     root.appendChild(page);
   }
   const tegak=cells.filter(c=>c[3]>=c[2]).length;
-  $('info').innerHTML=`<b>${per} foto</b> per lembar (${tegak} tegak + ${per-tegak} rebah)<br>${photos.length} foto → ${photos.length?pages:0} lembar<br>Garis potong = ${mode==='split'?(+cells[0][2].toFixed(1))+' × '+(+cells[0][3].toFixed(1))+' mm':'ukuran '+$('size').value} penuh, border putih ${b} mm<br>Kertas ${PW} × ${PH} mm, margin 3 mm, garis ${lw} mm`;
+  $('perCount').textContent=per+(isK?' KTP':' foto');
+  if(isK){
+    $('totalInfo').textContent=kurl?`${qty} KTP → ${pages} lembar`:'belum ada foto KTP';
+    $('chip').textContent=`${per} KTP per lembar`;
+    $('qhint').textContent=`${Math.ceil(qty/per)} lembar`;
+    $('qcap').textContent=`KTP dicetak 85,6 × 54 mm (ukuran asli), maksimal ${per} per lembar dengan jarak ${+kg.toFixed(1)} mm.`;
+    $('detail').textContent=`Potongan KTP 85,6 × 54 mm tanpa border, jarak antar KTP ${+kg.toFixed(1)} mm. Margin kertas 3 mm, garis ${lw} mm.`;
+  }else{
+    $('totalInfo').textContent=photos.length?`${photos.length} foto → ${pages} lembar`:'belum ada foto';
+    $('chip').textContent=mode==='split'?`${per} bagian`:`${tegak} tegak + ${per-tegak} rebah`;
+    $('detail').textContent=`Garis potong ${mode==='split'?(+cells[0][2].toFixed(1))+' × '+(+cells[0][3].toFixed(1))+' mm':'ukuran '+$('size').value} penuh, border putih ${b} mm. Margin kertas 3 mm, garis ${lw} mm.`;
+  }
+  upPg();
 }
+
 const OPTS='<option value="auto">Otomatis</option><option value="0">Tanpa putar</option><option value="90">Putar 90° kanan</option><option value="270">Putar 90° kiri</option><option value="180">Putar 180°</option>';
 function buildList(){
   const el=$('plist');el.hidden=!photos.length;
   if(!photos.length){el.innerHTML='';return}
-  el.innerHTML='<label>Orientasi semua foto<select id="allrot"><option value="">Pilih untuk semua…</option>'+OPTS+'</select></label><div class="rows"></div>';
+  el.innerHTML='<label class="fld"><span class="fl">Orientasi semua foto</span><select id="allrot"><option value="">Pilih untuk semua…</option>'+OPTS+'</select></label><div class="rows"></div>';
   const rows=el.querySelector('.rows');
   photos.forEach((p,i)=>{
     const r=document.createElement('div');r.className='prow';
-    r.innerHTML=`<img src="${p.src}" alt=""><span>${p.naturalWidth>=p.naturalHeight?'Rebah':'Tegak'}</span><select aria-label="Orientasi foto ${i+1}">${OPTS}</select><button class="g x" title="Hapus foto" aria-label="Hapus foto ${i+1}">✕</button>`;
+    r.innerHTML=`<img src="${p.src}" alt=""><span>${p.naturalWidth>=p.naturalHeight?'Rebah':'Tegak'}</span><select aria-label="Orientasi foto ${i+1}">${OPTS}</select><button class="x" title="Hapus foto" aria-label="Hapus foto ${i+1}">✕</button>`;
     const sel=r.querySelector('select');sel.value=p.rot;
     sel.onchange=()=>{p.rot=sel.value;render()};
     r.querySelector('button').onclick=()=>{photos.splice(i,1);buildList();render()};
@@ -224,9 +598,56 @@ $('file').onchange=e=>{addFiles(e.target.files);e.target.value=''};
 $('drop').ondragover=e=>{e.preventDefault();$('drop').classList.add('on')};
 $('drop').ondragleave=()=>$('drop').classList.remove('on');
 $('drop').ondrop=e=>{e.preventDefault();$('drop').classList.remove('on');addFiles(e.dataTransfer.files)};
-['paper','pw','ph','size','copies','fit','gap','rot','border','lw','align','mode','split'].forEach(id=>$(id).addEventListener('input',render));
-$('clear').onclick=()=>{photos=[];buildList();render()};
+['paper','pw','ph','size','copies','fit','gap','rot','border','lw','align','mode','split','kqty','kgap'].forEach(id=>$(id).addEventListener('input',render));
+$('clear').onclick=()=>{if($('mode').value==='ktp')clearKtp();else{photos=[];buildList()}render()};
 $('print').onclick=()=>window.print();
+$('zi').onclick=()=>setZ(Z+.1);
+$('zo').onclick=()=>setZ(Z-.1);
+$('pp').onclick=()=>goPage(-1);
+$('pn').onclick=()=>goPage(1);
+$('stage').addEventListener('scroll',()=>{
+  const ps=[...$('pages').children];if(!ps.length)return;
+  const top=$('stage').getBoundingClientRect().top+24;let bi=0,bd=1e9;
+  ps.forEach((p,i)=>{const d=Math.abs(p.getBoundingClientRect().top-top);if(d<bd){bd=d;bi=i}});
+  if(bi!==cur){cur=bi;upPg()}
+},{passive:true});
+(function(){
+  const g=$('qchips');
+  [1,2,4,6,8].forEach(q=>{
+    const bt=document.createElement('button');bt.type='button';bt.dataset.q=String(q);bt.textContent=q;
+    bt.onclick=()=>{$('kqty').value=q;$('kqty').dispatchEvent(new Event('input',{bubbles:true}))};
+    g.appendChild(bt);
+  });
+})();
+$('kdrop').onclick=()=>$('kfile').click();
+$('kdrop').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('kfile').click()}};
+$('kfile').onchange=e=>{loadKtp(e.target.files[0]);e.target.value=''};
+$('kdrop').ondragover=e=>{e.preventDefault();$('kdrop').classList.add('on')};
+$('kdrop').ondragleave=()=>$('kdrop').classList.remove('on');
+$('kdrop').ondrop=e=>{e.preventDefault();$('kdrop').classList.remove('on');loadKtp(e.dataTransfer.files[0])};
+$('kauto').onclick=()=>{if(!kimg)return;kpts=detectQuad(kimg);drawEditor();warpKtp(false);render()};
+$('krot').onclick=()=>{if(!kimg)return;kpts.unshift(kpts.pop());drawEditor();warpKtp(false);render()};
+$('kreset').onclick=()=>{if(!kimg)return;kpts=defaultQuad(kimg.naturalWidth,kimg.naturalHeight);drawEditor();warpKtp(false);render()};
+$('kcolor').addEventListener('input',()=>{warpKtp(false);render()});
+function kpos(e){const cv=$('kcv'),r=cv.getBoundingClientRect(),s=cv.width/r.width;return [(e.clientX-r.left)*s,(e.clientY-r.top)*s]}
+$('kcv').addEventListener('pointerdown',e=>{
+  if(!kimg)return;
+  const [x,y]=kpos(e),s=$('kcv').width/kimg.naturalWidth;let bi=-1,bd=44*44;
+  kpts.forEach((q,i)=>{const dd=(q[0]*s-x)**2+(q[1]*s-y)**2;if(dd<bd){bd=dd;bi=i}});
+  if(bi<0)return;
+  kdrag=bi;$('kcv').setPointerCapture(e.pointerId);e.preventDefault();
+});
+$('kcv').addEventListener('pointermove',e=>{
+  if(kdrag<0)return;
+  const [x,y]=kpos(e),s=$('kcv').width/kimg.naturalWidth;
+  kpts[kdrag]=[Math.min(kimg.naturalWidth,Math.max(0,x/s)),Math.min(kimg.naturalHeight,Math.max(0,y/s))];
+  drawEditor();
+  if(!kraf)kraf=requestAnimationFrame(()=>{kraf=0;warpKtp(true);render()});
+});
+const kend=()=>{if(kdrag<0)return;kdrag=-1;warpKtp(false);render()};
+$('kcv').addEventListener('pointerup',kend);
+$('kcv').addEventListener('pointercancel',kend);
+setZ(Z);
 render();
 </script>
 </body>
