@@ -103,7 +103,7 @@ aside{display:contents}
 <details class="card"><summary>Lanjutan: posisi, border, jarak</summary><div class="adv">
 <div class="fld"><span class="lab">Posisi susunan di kertas</span><select id="align" hidden><option value="tc">Atas tengah</option><option value="tl">Atas kiri</option><option value="c">Tengah</option></select></div>
 <div class="three"><label class="fld"><span class="lab">Border</span><input class="mig-input" id="border" type="number" min="0" max="15" step=".5" value="3"></label><label class="fld"><span class="lab">Jarak</span><input class="mig-input" id="gap" type="number" min="0" max="20" step=".5" value="0"></label><label class="fld"><span class="lab">Garis</span><input class="mig-input" id="lw" type="number" min=".01" max=".5" step=".01" value=".01"></label></div>
-<p class="hint">Semua dalam mm. Border = putih tiap sisi foto, jarak = celah antar foto, garis = tebal garis potong.</p><p class="hint" id="detail"></p></div></details>
+<p class="hint">Semua dalam mm. Border = putih tiap sisi foto, jarak = celah antar foto, garis = tebal tanda sudut.</p><p class="hint" id="detail"></p></div></details>
 </div>
 <div class="foot"><p class="note" id="note" role="status"></p>
 <div class="sum"><span>Per lembar</span><b id="perCount">–</b></div><div class="sum"><span>Total</span><b id="totalInfo">0 foto</b></div>
@@ -268,7 +268,7 @@ function render(){
   cells.forEach((c,i)=>{
    const x=ox+c[0],y=oy+c[1],p=seq[pg*per+i],d=document.createElement('div');
    d.className='cell'+(p?'':' empty');d.style.cssText=`left:${x}mm;top:${y}mm;width:${c[2]}mm;height:${c[3]}mm;padding:${b}mm`;
-   if(p){d.innerHTML=`<img src="${imgSrc(p,c,b)}" alt="">`;rects+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`}
+   if(p){d.innerHTML=`<img src="${imgSrc(p,c,b)}" alt="">`;{const L=Math.min(2,c[2]/4,c[3]/4),X=x+c[2],Y=y+c[3];rects+=`<path d="M${x} ${y+L}V${y}H${x+L}M${X-L} ${y}H${X}V${y+L}M${X} ${Y-L}V${Y}H${X-L}M${x+L} ${Y}H${x}V${Y-L}"/>`}}
    if(!p&&!(isK?kurl:photos.length))ghost+=`<rect x="${x}" y="${y}" width="${c[2]}" height="${c[3]}"/>`;
    page.appendChild(d);
   });
@@ -281,7 +281,7 @@ function render(){
   $('detail').textContent=`Potongan KTP 85,6 × 54 mm tanpa border, jarak ${+kg.toFixed(1)} mm. Margin kertas 3 mm, garis ${lw} mm.`}
  else{$('totalInfo').textContent=photos.length?`${photos.length} foto → ${pages} lembar`:'belum ada foto';
   $('chip').textContent=mode==='split'?`${per} bagian`:`${tegak} tegak + ${per-tegak} rebah`;
-  $('detail').textContent=`Garis potong ${mode==='split'?(+cells[0][2].toFixed(1))+' × '+(+cells[0][3].toFixed(1))+' mm':'ukuran '+$('size').value} penuh, border putih ${b} mm. Margin kertas 3 mm, garis ${lw} mm.`}
+  $('detail').textContent=`Tanda sudut potong ${mode==='split'?(+cells[0][2].toFixed(1))+' × '+(+cells[0][3].toFixed(1))+' mm':'ukuran '+$('size').value} (2 mm di tiap pojok), border putih ${b} mm. Margin kertas 3 mm, garis ${lw} mm.`}
  upPg();
 }
 const OPTS='<option value="auto">Otomatis</option><option value="0">Tanpa putar</option><option value="90">Putar 90° kanan</option><option value="270">Putar 90° kiri</option><option value="180">Putar 180°</option>';
