@@ -96,14 +96,15 @@ aside{display:contents}
 <div class="two" id="custom" hidden><label class="fld"><span class="lab">Lebar (mm)</span><input class="mig-input" id="pw" type="number" min="30" value="150"></label><label class="fld"><span class="lab">Tinggi (mm)</span><input class="mig-input" id="ph" type="number" min="30" value="200"></label></div>
 <div class="fld" id="lblSplit" hidden><span class="lab">Pembagian kertas</span><select id="split" hidden><option value="2h">Atas-bawah</option><option value="2v">Kiri-kanan</option><option value="4">2 × 2</option></select></div>
 <label class="fld" id="lblSize"><span class="lab">Ukuran foto</span><select id="size" class="mig-input"><option value="1R">1R (5 × 7,5 cm)</option><option value="2R">2R (6 × 9 cm)</option><option value="3R">3R (8,9 × 12,7 cm)</option><option value="4R">4R (10,2 × 15,2 cm)</option><option value="5R">5R (12,7 × 17,8 cm)</option><option value="6R">6R (15,2 × 20,3 cm)</option><option value="P23">Pas foto 2 × 3 cm</option><option value="P34">Pas foto 3 × 4 cm</option><option value="P46">Pas foto 4 × 6 cm</option></select></label>
-<label class="fld" id="lblCopies"><span class="lab">Salinan per foto</span><select id="copies" class="mig-input"><option value="0">Penuhi 1 lembar</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select></label>
+<label class="fld" id="lblCopies"><span class="lab">Salinan per foto</span><select id="copies" class="mig-input"><option value="0">Penuhi 1 lembar</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option><option value="8">8</option><option value="c">Custom…</option></select></label>
+<label class="fld" id="lblCopiesN" hidden><span class="lab">Jumlah salinan per foto</span><input class="mig-input" id="copiesN" type="number" min="1" max="500" value="10"></label>
 <div class="fld" id="lblFit"><span class="lab">Isi foto</span><select id="fit" hidden><option value="cover">Penuh (dipotong)</option><option value="contain">Utuh (ada sisi putih)</option></select></div>
 <div class="fld" id="lblQty" hidden><span class="lab" id="qlab">Jumlah KTP</span><div class="chips" id="qchips"></div><input class="mig-input" id="kqty" type="number" min="1" max="500" value="2" aria-label="Jumlah KTP">
 <label class="fld" id="kgapw"><span class="lab">Jarak antar KTP (mm)</span><input class="mig-input" id="kgap" type="number" min="0" max="40" value="10"></label><p class="hint" id="qcap"></p></div></section>
 <details class="card"><summary>Lanjutan: posisi, border, jarak</summary><div class="adv">
 <div class="fld"><span class="lab">Posisi susunan di kertas</span><select id="align" hidden><option value="tc">Atas tengah</option><option value="tl">Atas kiri</option><option value="c">Tengah</option></select></div>
 <div class="three"><label class="fld"><span class="lab">Border</span><input class="mig-input" id="border" type="number" min="0" max="15" step=".5" value="3"></label><label class="fld"><span class="lab">Jarak</span><input class="mig-input" id="gap" type="number" min="0" max="20" step=".5" value="0"></label><label class="fld"><span class="lab">Garis</span><input class="mig-input" id="lw" type="number" min=".01" max=".5" step=".01" value=".01"></label></div>
-<p class="hint">Semua dalam mm. Border = putih tiap sisi foto, jarak = celah antar foto, garis = tebal tanda sudut.</p><p class="hint" id="detail"></p></div></details>
+<p class="hint">Semua dalam mm. Border = putih tiap sisi foto, sudah termasuk dalam ukuran foto (3 × 4 tetap 3 × 4, gambarnya yang mengecil), jarak = celah antar foto, garis = tebal tanda sudut.</p><p class="hint" id="detail"></p></div></details>
 </div>
 <div class="foot"><p class="note" id="note" role="status"></p>
 <div class="sum"><span>Per lembar</span><b id="perCount">–</b></div><div class="sum"><span>Total</span><b id="totalInfo">0 foto</b></div>
@@ -251,7 +252,7 @@ function render(){
  UW=PW-2*M;UH=PH-2*M;pgStyle.textContent=`@page{size:${PW}mm ${PH}mm;margin:0}`;
  const mode=$('mode').value,isD=mode==='doc',isK=mode==='ktp'||isD;
  $('stPhoto').hidden=isK;$('stKtp').hidden=!isK;$('lblSize').hidden=mode!=='r';$('lblSplit').hidden=mode!=='split';
- $('lblCopies').hidden=isK;$('lblFit').hidden=isK;$('lblQty').hidden=!isK;$('lblRot').hidden=isK;
+ $('lblCopies').hidden=isK;$('lblCopiesN').hidden=isK||$('copies').value!=='c';$('lblFit').hidden=isK;$('lblQty').hidden=!isK;$('lblRot').hidden=isK;
  $('qlab').textContent=isD?'Jumlah salinan':'Jumlah KTP';$('kgapw').hidden=isD;$('ktt').textContent=isD?'Foto dokumen (1 halaman)':'Foto KTP (bagian depan)';$('kdropt').textContent=(kimg?'Ganti foto ':'Pilih atau tarik foto ')+(isD?'dokumen':'KTP')+(kimg?'':' ke sini');
  const [w,h]=isK?[85.6,54]:SIZES[$('size').value],g=Math.max(0,parseFloat($('gap').value)||0),kg=Math.max(0,parseFloat($('kgap').value)||0);
  const kc=isK&&!isD?ktpCells(kg):[],cells=mode==='split'?splitCells(g):isD?[[0,0,UW,UH]]:(isK&&kc.length?kc:pack(w,h,g)),per=cells.length,root=$('pages');
@@ -260,7 +261,7 @@ function render(){
  root.innerHTML='';photos.forEach(p=>p._c={});
  if(!per){$('note').textContent='Ukuran foto terlalu besar untuk kertas ini (margin 3 mm).';$('perCount').textContent='–';$('totalInfo').textContent='–';$('chip').textContent='Tidak muat';$('detail').textContent='';upPg();return}
  $('note').textContent='';
- const qty=Math.max(1,Math.min(500,Math.round(parseFloat($('kqty').value)||1))),n=+$('copies').value||per,seq=[];
+ const qty=Math.max(1,Math.min(500,Math.round(parseFloat($('kqty').value)||1))),cv=$('copies').value,n=cv==='c'?Math.max(1,Math.min(500,Math.round(parseFloat($('copiesN').value)||1))):+cv||per,seq=[];
  if(isK){if(kurl)for(let k=0;k<qty;k++)seq.push(KP)}else photos.forEach(p=>{for(let k=0;k<n;k++)seq.push(p)});
  const pages=Math.max(1,Math.ceil(seq.length/per)),mx=Math.max(...cells.map(c=>c[0]+c[2])),my=Math.max(...cells.map(c=>c[1]+c[3]));
  const al=$('align').value,ox=al==='tl'?M:M+(UW-mx)/2,oy=al==='c'?M+(UH-my)/2:M;
@@ -310,7 +311,7 @@ function dz(dropId,fileId,fn,multi){
  d.ondragover=e=>{e.preventDefault()};d.ondrop=e=>{e.preventDefault();fn(multi?e.dataTransfer.files:e.dataTransfer.files[0])};
 }
 dz('drop','file',addFiles,true);dz('kdrop','kfile',loadKtp,false);
-['paper','pw','ph','size','copies','fit','gap','rot','border','lw','align','mode','split','kqty','kgap'].forEach(id=>$(id).addEventListener('input',render));
+['paper','pw','ph','size','copies','copiesN','fit','gap','rot','border','lw','align','mode','split','kqty','kgap'].forEach(id=>$(id).addEventListener('input',render));
 $('clear').onclick=()=>{if($('mode').value==='ktp')clearKtp();else{photos=[];buildList()}render()};
 $('print').onclick=()=>window.print();
 $('zi').onclick=()=>setZ(Z+.1);$('zo').onclick=()=>setZ(Z-.1);$('pp').onclick=()=>goPage(-1);$('pn').onclick=()=>goPage(1);
